@@ -13,30 +13,14 @@ Console.WriteLine("" + numberCodeAsChars[0] + numberCodeAsChars[1] + numberCodeA
 
 string? firstGuessString = Console.ReadLine();
 
-string errorMessage = "Please enter four numbers between 1 and 6.";
+bool hasNonValidInput = CheckIfHasNonValidInput(firstGuessString);
 
-if (firstGuessString == null || firstGuessString.Length != 4)
+if (hasNonValidInput)
 {
-    Console.WriteLine(errorMessage);
+    Console.WriteLine("Please enter four numbers between 1 and 6.");
 }
 else
 {
-    bool hasNonValidInput = false;
-
-    for (int index = 0; index < 4; index++)
-    {
-        if (!(firstGuessString[index] == '1' || firstGuessString[index] == '2' || firstGuessString[index] == '3' || firstGuessString[index] == '4' || firstGuessString[index] == '5' || firstGuessString[index] == '6'))
-        {
-            hasNonValidInput = true;
-        }
-    }
-
-    if (hasNonValidInput)
-    {
-        Console.WriteLine(errorMessage);
-    }
-    else
-    {
         string guessResults = "";
         //  We don't want to count the same number more than once,
         //  like a user could enter "3333" and the number could be "1234",
@@ -45,7 +29,7 @@ else
 
         for (int index = 0; index < 4; index++)
         {
-            if (firstGuessString[index] == numberCodeAsChars[index])
+            if (firstGuessString![index] == numberCodeAsChars[index])
             {
                 guessResults = guessResults + "+";
                 usedNumbers[index] = true;
@@ -56,15 +40,34 @@ else
         {
             for (int index2 = 0; index2 < 4; index2++)
             {
-                if (firstGuessString[index] == numberCodeAsChars[index2] && usedNumbers[index2] == false)
+                if (firstGuessString![index] == numberCodeAsChars[index2] && usedNumbers[index2] == false)
                 {
                     guessResults = guessResults + "-";
                     usedNumbers[index2] = true;
+                    break;
                 }
             }
         }
 
         Console.WriteLine("Guess Results: " + guessResults);
-    }
+}
 
+static bool CheckIfHasNonValidInput(string? guessString)
+{
+    if (guessString == null || guessString.Length != 4)
+    {
+        return true;
+    }
+    else
+    {
+        for (int index = 0; index < 4; index++)
+        {
+            if (!(guessString[index] == '1' || guessString[index] == '2' || guessString[index] == '3' || guessString[index] == '4' || guessString[index] == '5' || guessString[index] == '6'))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

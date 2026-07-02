@@ -38,12 +38,29 @@ else
     else
     {
         string guessResults = "";
+        //  We don't want to count the same number more than once,
+        //  like a user could enter "3333" and the number could be "1234",
+        //  want to make sure the 3 only gets used once instead of 4 times.
+        List<bool> usedNumbers = [false, false, false, false];
 
         for (int index = 0; index < 4; index++)
         {
             if (firstGuessString[index] == numberCodeAsChars[index])
             {
                 guessResults = guessResults + "+";
+                usedNumbers[index] = true;
+            }
+        }
+
+        for (int index = 0; index < 4; index++)
+        {
+            for (int index2 = 0; index2 < 4; index2++)
+            {
+                if (firstGuessString[index] == numberCodeAsChars[index2] && usedNumbers[index2] == false)
+                {
+                    guessResults = guessResults + "-";
+                    usedNumbers[index2] = true;
+                }
             }
         }
 

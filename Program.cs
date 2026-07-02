@@ -2,14 +2,14 @@
 
 Random rand = new();
 
-List<string> numberCodeAsStrings = [];
+List<char> numberCodeAsChars = [];
 
 for (int index = 0; index < 4; index++)
 {
-    numberCodeAsStrings.Add(rand.Next(1, 7).ToString());
+    numberCodeAsChars.Add(char.Parse(rand.Next(1, 7).ToString()));
 }
 
-Console.WriteLine(numberCodeAsStrings[0] + numberCodeAsStrings[1] + numberCodeAsStrings[2] + numberCodeAsStrings[3]);
+Console.WriteLine("" + numberCodeAsChars[0] + numberCodeAsChars[1] + numberCodeAsChars[2] + numberCodeAsChars[3]);
 
 string? firstGuessString = Console.ReadLine();
 
@@ -35,7 +35,17 @@ else
     }
     else
     {
-        Console.WriteLine("Placeholder 2");
+        string guessResults = "";
+
+        for (int index = 0; index < 4; index++)
+        {
+            if (firstGuessString[index] == numberCodeAsChars[index])
+            {
+                guessResults = guessResults + "+";
+            }
+        }
+
+        Console.WriteLine("Guess Results: " + guessResults);
     }
 
 }

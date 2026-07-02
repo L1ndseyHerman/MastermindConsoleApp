@@ -1,4 +1,9 @@
-﻿Console.WriteLine("Placeholder");
+﻿Console.WriteLine("Welcome to Mastermind! " +
+    "The computer will create a 4-digit code with numbers between 1 and 6 (inclusive). " +
+    "Your job as the player is to guess the code. " +
+    "A '+' means you got a digit correct and in the correct position. " +
+    "A '-' means you got a digit correct but in the wrong position. " +
+    "You have 10 guesses to crack the code. Good luck!");
 
 Random rand = new();
 
@@ -9,7 +14,10 @@ for (int index = 0; index < 4; index++)
     numberCodeAsChars.Add(char.Parse(rand.Next(1, 7).ToString()));
 }
 
+//  Temporary to make sure code is working:
 Console.WriteLine("" + numberCodeAsChars[0] + numberCodeAsChars[1] + numberCodeAsChars[2] + numberCodeAsChars[3]);
+Console.WriteLine("");
+Console.WriteLine("Enter your guess");
 
 string? firstGuessString = Console.ReadLine();
 

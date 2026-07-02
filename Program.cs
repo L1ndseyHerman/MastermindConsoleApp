@@ -13,9 +13,11 @@ Console.WriteLine("" + numberCodeAsChars[0] + numberCodeAsChars[1] + numberCodeA
 
 string? firstGuessString = Console.ReadLine();
 
+string errorMessage = "Please enter four numbers between 1 and 6.";
+
 if (firstGuessString == null || firstGuessString.Length != 4)
 {
-    Console.WriteLine("Some error message");
+    Console.WriteLine(errorMessage);
 }
 else
 {
@@ -31,7 +33,7 @@ else
 
     if (hasNonValidInput)
     {
-        Console.WriteLine("Some error message");
+        Console.WriteLine(errorMessage);
     }
     else
     {

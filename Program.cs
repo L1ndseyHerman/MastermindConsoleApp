@@ -16,21 +16,53 @@ for (int index = 0; index < 4; index++)
 
 //  Temporary to make sure code is working:
 Console.WriteLine("" + numberCodeAsChars[0] + numberCodeAsChars[1] + numberCodeAsChars[2] + numberCodeAsChars[3]);
+
 Console.WriteLine("");
-Console.WriteLine("Enter your guess");
 
-string? firstGuessString = Console.ReadLine();
+int turnCounter = 1;
 
-bool hasNonValidInput = CheckIfHasNonValidInput(firstGuessString);
-
-if (hasNonValidInput)
+while (turnCounter < 11 && turnCounter > 0)
 {
-    Console.WriteLine("Please enter four numbers between 1 and 6.");
+    turnCounter = TakeTurn(turnCounter, numberCodeAsChars);
 }
-else
+
+if (turnCounter == 11)
 {
-    string guessResults = HandleGuess(firstGuessString!, numberCodeAsChars);
-    Console.WriteLine("Guess Results: " + guessResults);
+    Console.WriteLine("You Loose.");
+}
+
+//  I don't love that there's "side effects" in here like reading and writing to the console,
+//  but I wasn't sure else how to loop the logic ~10times wo a method....
+static int TakeTurn(int turnCounter, List<char> numberCodeAsChars)
+{
+    Console.WriteLine("Enter your Guess" + turnCounter);
+
+    string? guessString = Console.ReadLine();
+
+    bool hasNonValidInput = CheckIfHasNonValidInput(guessString);
+
+    if (hasNonValidInput)
+    {
+        Console.WriteLine("Please enter four numbers between 1 and 6.");
+        return turnCounter;
+    }
+    else
+    {
+        string guessResults = HandleGuess(guessString!, numberCodeAsChars);
+        Console.WriteLine("Guess Results: " + guessResults);
+
+        if (guessResults == "++++")
+        {
+            Console.WriteLine("You Win!");
+            //  Setting it to -1 so it doesn't try to make you take more turns.
+            //  I feel like there might be a better way to handle this,
+            //  but I can't think of anything offhand. Like I wish I could return a win boolean,
+            //  but I'm already returning the turnCounter :(
+            turnCounter = -1;
+        }
+
+        return turnCounter + 1;
+    }
 }
 
 static bool CheckIfHasNonValidInput(string? guessString)
@@ -43,13 +75,13 @@ static bool CheckIfHasNonValidInput(string? guessString)
     {
         for (int index = 0; index < 4; index++)
         {
-            if ((guessString[index] == '1' || guessString[index] == '2' || guessString[index] == '3' || guessString[index] == '4' || guessString[index] == '5' || guessString[index] == '6'))
+            if (!(guessString[index] == '1' || guessString[index] == '2' || guessString[index] == '3' || guessString[index] == '4' || guessString[index] == '5' || guessString[index] == '6'))
             {
-                return false;
+                return true;
             }
         }
 
-        return true;
+        return false;
     }
 }
 

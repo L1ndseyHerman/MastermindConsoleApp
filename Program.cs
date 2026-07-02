@@ -21,35 +21,8 @@ if (hasNonValidInput)
 }
 else
 {
-        string guessResults = "";
-        //  We don't want to count the same number more than once,
-        //  like a user could enter "3333" and the number could be "1234",
-        //  want to make sure the 3 only gets used once instead of 4 times.
-        List<bool> usedNumbers = [false, false, false, false];
-
-        for (int index = 0; index < 4; index++)
-        {
-            if (firstGuessString![index] == numberCodeAsChars[index])
-            {
-                guessResults = guessResults + "+";
-                usedNumbers[index] = true;
-            }
-        }
-
-        for (int index = 0; index < 4; index++)
-        {
-            for (int index2 = 0; index2 < 4; index2++)
-            {
-                if (firstGuessString![index] == numberCodeAsChars[index2] && usedNumbers[index2] == false)
-                {
-                    guessResults = guessResults + "-";
-                    usedNumbers[index2] = true;
-                    break;
-                }
-            }
-        }
-
-        Console.WriteLine("Guess Results: " + guessResults);
+    string guessResults = HandleGuess(firstGuessString!, numberCodeAsChars);
+    Console.WriteLine("Guess Results: " + guessResults);
 }
 
 static bool CheckIfHasNonValidInput(string? guessString)
@@ -62,12 +35,46 @@ static bool CheckIfHasNonValidInput(string? guessString)
     {
         for (int index = 0; index < 4; index++)
         {
-            if (!(guessString[index] == '1' || guessString[index] == '2' || guessString[index] == '3' || guessString[index] == '4' || guessString[index] == '5' || guessString[index] == '6'))
+            if ((guessString[index] == '1' || guessString[index] == '2' || guessString[index] == '3' || guessString[index] == '4' || guessString[index] == '5' || guessString[index] == '6'))
             {
-                return true;
+                return false;
             }
         }
 
-        return false;
+        return true;
     }
+}
+
+static string HandleGuess(string guessString, List<char> numberCodeAsChars)
+{
+    string guessResults = "";
+    //  We don't want to count the same number more than once,
+    //  like a user could enter "3333" and the number could be "1234",
+    //  want to make sure the 3 only counts as 1 "+", not three "-" as well or something.
+    List<bool> usedNumbers = [false, false, false, false];
+
+    for (int index = 0; index < 4; index++)
+    {
+        if (guessString![index] == numberCodeAsChars[index])
+        {
+            guessResults = guessResults + "+";
+            usedNumbers[index] = true;
+        }
+    }
+
+    for (int index = 0; index < 4; index++)
+    {
+        for (int index2 = 0; index2 < 4; index2++)
+        {
+            if (guessString![index] == numberCodeAsChars[index2] && usedNumbers[index2] == false)
+            {
+                guessResults = guessResults + "-";
+                usedNumbers[index2] = true;
+                //  Whoops, and need a break to not count numbers more than once as well!
+                break;
+            }
+        }
+    }
+
+    return guessResults;
 }

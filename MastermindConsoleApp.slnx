@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="../MastermindConsoleAppTests/MastermindConsoleAppTests.csproj" Id="aa7fecbd-d8fe-48f0-9427-68b1099c950a" />
   <Project Path="MastermindConsoleApp.csproj" />
 </Solution>

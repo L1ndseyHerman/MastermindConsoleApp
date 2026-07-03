@@ -28,7 +28,7 @@ namespace MastermindConsoleApp
 
             int turnCounter = 1;
 
-            //  Gets set to 0 if u win:
+            //  Gets set to -1 if u win:
             while (turnCounter < 11 && turnCounter > 0)
             {
                 turnCounter = TakeTurn(numberCodeString, turnCounter);
@@ -64,7 +64,7 @@ namespace MastermindConsoleApp
                     //  I feel like there might be a better way to handle this,
                     //  but I can't think of anything offhand. Like I wish I could return a win boolean,
                     //  but I'm already returning the turnCounter :(
-                    turnCounter = -1;
+                    return -1;
                 }
 
                 int newTurnCounter = turnCounter + 1;

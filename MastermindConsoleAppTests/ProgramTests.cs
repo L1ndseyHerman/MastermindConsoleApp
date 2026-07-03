@@ -61,7 +61,7 @@ namespace MastermindConsoleAppTests
         //  It would be nice to test that the "You Win!" message appears,
         //  but I'm not sure how to set up the code in a way that it's testable....
         [Fact]
-        public void TakeTurn_WithGuessThatIsAWin_ReturnsATurnCounterOf0()
+        public void TakeTurn_WithGuessThatIsAWin_ReturnsATurnCounterOfNegativeOne()
         {
             using var stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
@@ -72,7 +72,7 @@ namespace MastermindConsoleAppTests
 
             int turnCounter = Program.TakeTurn("1234", 5);
 
-            Assert.Equal(0, turnCounter);
+            Assert.Equal(-1, turnCounter);
         }
 
         //  It would be nice to test that the "You Loose." message appears,

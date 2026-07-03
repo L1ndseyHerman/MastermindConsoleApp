@@ -5,6 +5,23 @@ namespace MastermindConsoleAppTests
 {
     public class ProgramTests
     {
+        [Fact]
+        public void TakeTurn_Something_Something()
+        {
+            // 1. Mock Console.ReadLine() by pre-filling an input stream
+            var inputData = "4321" + Environment.NewLine;
+            using var stringReader = new StringReader(inputData);
+            Console.SetIn(stringReader);
+
+            // 2. Mock Console.WriteLine() by capturing the output stream
+            using var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            int turnCounter = Program.TakeTurn("1234", 1);
+
+            Assert.Equal(2, turnCounter);
+        }
+
         [Theory]
         [InlineData(null)]
         [InlineData("")]

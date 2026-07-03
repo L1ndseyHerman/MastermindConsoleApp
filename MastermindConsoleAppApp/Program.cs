@@ -30,18 +30,13 @@ namespace MastermindConsoleApp
 
             while (turnCounter < 11 && turnCounter > 0)
             {
-                turnCounter = TakeTurn(turnCounter, numberCodeString);
-            }
-
-            if (turnCounter == 11)
-            {
-                Console.WriteLine("You Loose.");
+                turnCounter = TakeTurn(numberCodeString, turnCounter);
             }
         }
 
         //  I don't love that there's "side effects" in here like reading and writing to the console,
         //  but I wasn't sure else how to loop the logic ~10times wo a method....
-        public static int TakeTurn(int turnCounter, string numberCodeString)
+        public static int TakeTurn(string numberCodeString, int turnCounter)
         {
             Console.WriteLine("Enter your Guess" + turnCounter);
 
@@ -58,6 +53,7 @@ namespace MastermindConsoleApp
             {
                 string guessResults = HandleGuess(numberCodeString, guessString!);
                 Console.WriteLine("Guess Results: " + guessResults);
+                Console.WriteLine("");
 
                 if (guessResults == "++++")
                 {
@@ -69,8 +65,14 @@ namespace MastermindConsoleApp
                     turnCounter = -1;
                 }
 
-                Console.WriteLine("");
-                return turnCounter + 1;
+                int newTurnCounter = turnCounter + 1;
+
+                if (newTurnCounter == 11)
+                {
+                    Console.WriteLine("You Loose.");
+                }
+
+                return newTurnCounter;
             }
         }
 

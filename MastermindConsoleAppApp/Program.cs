@@ -48,6 +48,7 @@ namespace MastermindConsoleApp
             if (hasNonValidInput)
             {
                 Console.WriteLine("Please enter four numbers between 1 and 6.");
+                Console.WriteLine("");
                 return turnCounter;
             }
             else

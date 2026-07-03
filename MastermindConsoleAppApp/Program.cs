@@ -28,6 +28,7 @@ namespace MastermindConsoleApp
 
             int turnCounter = 1;
 
+            //  Gets set to 0 if u win:
             while (turnCounter < 11 && turnCounter > 0)
             {
                 turnCounter = TakeTurn(numberCodeString, turnCounter);

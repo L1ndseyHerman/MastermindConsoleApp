@@ -5,21 +5,91 @@ namespace MastermindConsoleAppTests
 {
     public class ProgramTests
     {
-        [Fact]
-        public void TakeTurn_Something_Something()
-        {
-            // 1. Mock Console.ReadLine() by pre-filling an input stream
-            var inputData = "4321" + Environment.NewLine;
-            using var stringReader = new StringReader(inputData);
-            Console.SetIn(stringReader);
+        //  I don't see a reason to test the main method, because all that's in there is console output,
+        //  the random number, which we don't want random numbers in tests, we want the same test each time,
+        //  and then other basic things like looping logic. I wrote tests for the other 3 methods tho :)
 
-            // 2. Mock Console.WriteLine() by capturing the output stream
+        [Fact]
+        public void TakeTurn_WithGuessThatIsNotAWinLooseOrError_IncrementsTheTurnCounter()
+        {
+            // Mock for Console.WriteLine():
             using var stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
+
+            // Mock for Console.ReadLine():
+            var inputData = "6666" + Environment.NewLine;
+            using var stringReader = new StringReader(inputData);
+            Console.SetIn(stringReader);
 
             int turnCounter = Program.TakeTurn("1234", 1);
 
             Assert.Equal(2, turnCounter);
+        }
+
+        [Fact]
+        public void TakeTurn_WithGuessThatIsNotAWinLooseOrError_IncrementsTheTurnCounterDifNumber()
+        {
+            using var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            var inputData = "6666" + Environment.NewLine;
+            using var stringReader = new StringReader(inputData);
+            Console.SetIn(stringReader);
+
+            int turnCounter = Program.TakeTurn("1234", 5);
+
+            Assert.Equal(6, turnCounter);
+        }
+
+        //  It would be nice to test that the "Please enter four numbers between 1 and 6." error message appears,
+        //  but I'm not sure how to set up the code in a way that it's testable....
+        [Fact]
+        public void TakeTurn_WithInvalidCharactersInGuess_DoesNotIncrementTheTurnCounter()
+        {
+            using var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            var inputData = "abcd" + Environment.NewLine;
+            using var stringReader = new StringReader(inputData);
+            Console.SetIn(stringReader);
+
+            int turnCounter = Program.TakeTurn("1234", 5);
+
+            Assert.Equal(5, turnCounter);
+        }
+
+        //  It would be nice to test that the "You Win!" message appears,
+        //  but I'm not sure how to set up the code in a way that it's testable....
+        [Fact]
+        public void TakeTurn_WithGuessThatIsAWin_ReturnsATurnCounterOf0()
+        {
+            using var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            var inputData = "1234" + Environment.NewLine;
+            using var stringReader = new StringReader(inputData);
+            Console.SetIn(stringReader);
+
+            int turnCounter = Program.TakeTurn("1234", 5);
+
+            Assert.Equal(0, turnCounter);
+        }
+
+        //  It would be nice to test that the "You Loose." message appears,
+        //  but I'm not sure how to set up the code in a way that it's testable....
+        [Fact]
+        public void TakeTurn_WithTenthGuessThatStillIsntRight_ReturnsATurnCounterOf11()
+        {
+            using var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            var inputData = "6666" + Environment.NewLine;
+            using var stringReader = new StringReader(inputData);
+            Console.SetIn(stringReader);
+
+            int turnCounter = Program.TakeTurn("1234", 10);
+
+            Assert.Equal(11, turnCounter);
         }
 
         [Theory]

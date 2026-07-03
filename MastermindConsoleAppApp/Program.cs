@@ -16,12 +16,10 @@ namespace MastermindConsoleApp
 
             string numberCodeString = "";
 
-            /*for (int index = 0; index < 4; index++)
+            for (int index = 0; index < 4; index++)
             {
                 numberCodeString = numberCodeString + rand.Next(1, 7).ToString();
-            }*/
-
-            numberCodeString = "3232";
+            }
 
             //  Comment this back in to check if code is working:
             //Console.WriteLine(numberCodeString);
@@ -58,7 +56,7 @@ namespace MastermindConsoleApp
             }
             else
             {
-                string guessResults = HandleGuess(guessString!, numberCodeString);
+                string guessResults = HandleGuess(numberCodeString, guessString!);
                 Console.WriteLine("Guess Results: " + guessResults);
 
                 if (guessResults == "++++")
@@ -96,7 +94,7 @@ namespace MastermindConsoleApp
             }
         }
 
-        public static string HandleGuess(string guessString, string numberCodeString)
+        public static string HandleGuess(string numberCodeString, string guessString)
         {
             string guessResults = "";
             //  We don't want to count the same number more than once,

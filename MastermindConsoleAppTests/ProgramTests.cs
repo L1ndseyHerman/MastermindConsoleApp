@@ -41,5 +41,53 @@ namespace MastermindConsoleAppTests
 
             Assert.Equal("++++", guessResults);
         }
+
+        [Fact]
+        public void HandleGuess_WherePlayerGuessesSomeNumbersInTheCorrectSpots_ReturnsSomePlusses()
+        {
+            string guessResults = Program.HandleGuess("1234", "1636");
+
+            Assert.Equal("++", guessResults);
+        }
+
+        [Fact]
+        public void HandleGuess_WherePlayerGuessesAllTheRightNumbersButAllInTheWrongSpots_ReturnsAllMinuses()
+        {
+            string guessResults = Program.HandleGuess("1234", "4321");
+
+            Assert.Equal("----", guessResults);
+        }
+
+        [Fact]
+        public void HandleGuess_WherePlayerGuessesSomeNumbersThatAreRightButInTheWrongSpotAndSomeThatAreJustWrong_ReturnsSomeMinuses()
+        {
+            string guessResults = Program.HandleGuess("1234", "4626");
+
+            Assert.Equal("--", guessResults);
+        }
+
+        [Fact]
+        public void HandleGuess_WherePlayerGuessesAllTheWrongNumbers_ReturnsTheEmptyString()
+        {
+            string guessResults = Program.HandleGuess("1234", "6666");
+
+            Assert.Equal("", guessResults);
+        }
+
+        [Fact]
+        public void HandleGuess_WherePlayerGuessesSomeNumbersInTheRightSpotAndSomeInTheWrongSpot_ReturnsAMixOfPlussesAndMinusesWithAllThePlussesFirst()
+        {
+            string guessResults = Program.HandleGuess("1234", "1324");
+
+            Assert.Equal("++--", guessResults);
+        }
+
+        [Fact]
+        public void HandleGuess_WherePlayerGuessesAMixOfRightSpotWrongSpotAndWrongNumbers_ReturnsTheMix()
+        {
+            string guessResults = Program.HandleGuess("1234", "1356");
+
+            Assert.Equal("+-", guessResults);
+        }
     }
 }

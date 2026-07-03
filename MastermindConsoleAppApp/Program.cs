@@ -16,10 +16,12 @@ namespace MastermindConsoleApp
 
             string numberCodeString = "";
 
-            for (int index = 0; index < 4; index++)
+            /*for (int index = 0; index < 4; index++)
             {
                 numberCodeString = numberCodeString + rand.Next(1, 7).ToString();
-            }
+            }*/
+
+            numberCodeString = "3232";
 
             //  Comment this back in to check if code is working:
             //Console.WriteLine(numberCodeString);
@@ -100,14 +102,16 @@ namespace MastermindConsoleApp
             //  We don't want to count the same number more than once,
             //  like a user could enter "3333" and the number could be "1234",
             //  want to make sure the 3 only counts as 1 "+", not three "-" as well or something.
-            List<bool> usedNumbers = [false, false, false, false];
+            List<bool> guessStringUsedNumbers = [false, false, false, false];
+            List<bool> numberCodeStringUsedNumbers = [false, false, false, false];
 
             for (int index = 0; index < 4; index++)
             {
                 if (guessString![index] == numberCodeString[index])
                 {
                     guessResults = guessResults + "+";
-                    usedNumbers[index] = true;
+                    guessStringUsedNumbers[index] = true;
+                    numberCodeStringUsedNumbers[index] = true;
                 }
             }
 
@@ -115,10 +119,11 @@ namespace MastermindConsoleApp
             {
                 for (int index2 = 0; index2 < 4; index2++)
                 {
-                    if (guessString![index] == numberCodeString[index2] && usedNumbers[index2] == false)
+                    if (guessString![index] == numberCodeString[index2] && guessStringUsedNumbers[index] == false && numberCodeStringUsedNumbers[index2] == false)
                     {
                         guessResults = guessResults + "-";
-                        usedNumbers[index2] = true;
+                        guessStringUsedNumbers[index] = true;
+                        numberCodeStringUsedNumbers[index2] = true;
                         //  Whoops, and need a break to not count numbers more than once as well!
                         break;
                     }

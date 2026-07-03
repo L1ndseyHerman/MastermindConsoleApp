@@ -33,5 +33,13 @@ namespace MastermindConsoleAppTests
 
             Assert.False(result);
         }
+
+        [Fact]
+        public void HandleGuess_WherePlayerGuessesTheCode_ReturnsAllPlusses()
+        {
+            string guessResults = Program.HandleGuess("1234", "1234");
+
+            Assert.Equal("++++", guessResults);
+        }
     }
 }

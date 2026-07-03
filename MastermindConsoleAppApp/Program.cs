@@ -14,15 +14,15 @@ namespace MastermindConsoleApp
 
             Random rand = new();
 
-            List<char> numberCodeAsChars = [];
+            string numberCodeString = "";
 
             for (int index = 0; index < 4; index++)
             {
-                numberCodeAsChars.Add(char.Parse(rand.Next(1, 7).ToString()));
+                numberCodeString = numberCodeString + rand.Next(1, 7).ToString();
             }
 
             //  Comment this back in to check if code is working:
-            //Console.WriteLine("" + numberCodeAsChars[0] + numberCodeAsChars[1] + numberCodeAsChars[2] + numberCodeAsChars[3]);
+            //Console.WriteLine(numberCodeString);
 
             Console.WriteLine("");
 
@@ -30,7 +30,7 @@ namespace MastermindConsoleApp
 
             while (turnCounter < 11 && turnCounter > 0)
             {
-                turnCounter = TakeTurn(turnCounter, numberCodeAsChars);
+                turnCounter = TakeTurn(turnCounter, numberCodeString);
             }
 
             if (turnCounter == 11)
@@ -41,7 +41,7 @@ namespace MastermindConsoleApp
 
         //  I don't love that there's "side effects" in here like reading and writing to the console,
         //  but I wasn't sure else how to loop the logic ~10times wo a method....
-        public static int TakeTurn(int turnCounter, List<char> numberCodeAsChars)
+        public static int TakeTurn(int turnCounter, string numberCodeString)
         {
             Console.WriteLine("Enter your Guess" + turnCounter);
 
@@ -56,7 +56,7 @@ namespace MastermindConsoleApp
             }
             else
             {
-                string guessResults = HandleGuess(guessString!, numberCodeAsChars);
+                string guessResults = HandleGuess(guessString!, numberCodeString);
                 Console.WriteLine("Guess Results: " + guessResults);
 
                 if (guessResults == "++++")
@@ -69,6 +69,7 @@ namespace MastermindConsoleApp
                     turnCounter = -1;
                 }
 
+                Console.WriteLine("");
                 return turnCounter + 1;
             }
         }
@@ -93,7 +94,7 @@ namespace MastermindConsoleApp
             }
         }
 
-        public static string HandleGuess(string guessString, List<char> numberCodeAsChars)
+        public static string HandleGuess(string guessString, string numberCodeString)
         {
             string guessResults = "";
             //  We don't want to count the same number more than once,
@@ -103,7 +104,7 @@ namespace MastermindConsoleApp
 
             for (int index = 0; index < 4; index++)
             {
-                if (guessString![index] == numberCodeAsChars[index])
+                if (guessString![index] == numberCodeString[index])
                 {
                     guessResults = guessResults + "+";
                     usedNumbers[index] = true;
@@ -114,7 +115,7 @@ namespace MastermindConsoleApp
             {
                 for (int index2 = 0; index2 < 4; index2++)
                 {
-                    if (guessString![index] == numberCodeAsChars[index2] && usedNumbers[index2] == false)
+                    if (guessString![index] == numberCodeString[index2] && usedNumbers[index2] == false)
                     {
                         guessResults = guessResults + "-";
                         usedNumbers[index2] = true;

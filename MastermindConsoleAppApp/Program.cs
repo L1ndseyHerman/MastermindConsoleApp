@@ -54,7 +54,7 @@ namespace MastermindConsoleApp
             else
             {
                 string guessResults = HandleGuess(numberCodeString, guessString!);
-                Console.WriteLine("Guess Results: " + guessResults);
+                Console.WriteLine("Hint: " + guessResults);
                 Console.WriteLine("");
 
                 if (guessResults == "++++")
